@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@index');
+Route::get('login/{provider}', 'LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
