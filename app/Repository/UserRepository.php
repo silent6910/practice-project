@@ -26,11 +26,4 @@ class UserRepository
         );
     }
 
-    public function findSocialiteUser(string $providerId, string $provider)
-    {
-        return $this->model
-            ->where(['provider_id' => $providerId, 'provider' => $provider])
-            ->first();
-    }
-
 }

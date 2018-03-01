@@ -13,4 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware(['jwt.auth','jwt.refresh'])->get('/user','HomeController@getTokenData');
+Route::middleware(['jwt.auth'])->get('/user','HomeController@getTokenData');
+Route::middleware(['jwt.auth'])->get('/user/logout','LoginController@logout');
