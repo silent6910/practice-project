@@ -38,13 +38,13 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_ID'),
         'client_secret' => env('GOOGLE_KEY'),
-        'redirect' => 'http://localhost/login/google/callback',
+        'redirect' => 'http://localhost/api/login/google/callback',
     ],
 
     'facebook' => [
         'client_id' => env('FACEBOOK_ID'),
         'client_secret' => env('FACEBOOK_KEY'),
-        'redirect' => 'http://localhost/login/facebook/callback',
+        'redirect' => 'http://localhost/api/login/facebook/callback',
     ]
 
 ];

@@ -12,6 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
 Route::middleware(['jwt.auth'])->get('/user','HomeController@getTokenData');
 Route::middleware(['jwt.auth'])->get('/user/logout','LoginController@logout');

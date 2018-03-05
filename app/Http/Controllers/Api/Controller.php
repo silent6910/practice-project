@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Http\Controllers\Api;
-
 
 class Controller
 {
+
     /**
      * 整理回傳型式
      *
