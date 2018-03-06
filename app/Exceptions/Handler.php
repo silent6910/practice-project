@@ -4,6 +4,10 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class Handler extends ExceptionHandler
 {
@@ -13,7 +17,10 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        TokenExpiredException::class,
+        TokenInvalidException::class,
+        JWTException::class,
+        UnauthorizedHttpException::class,
     ];
 
     /**
@@ -31,23 +38,48 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
+        if ($exception->getCode() == config('errorCode.unknown')) {
+            if (app()->bound('sentry') && $this->shouldReport($exception)) {
+                app('sentry')->captureException($exception);
+            }
+        }
+
         parent::report($exception);
     }
 
     /**
      * Render an exception into an HTTP response.
+     * code:default=>200,unknown=>0,other=>errorCode
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        //It is not better that turn to use switch.
+        if ($exception instanceof TokenExpiredException) {
+            $code = config('errorCode.token_expired');
+        }
+        else if ($exception instanceof TokenInvalidException) {
+            $code = config('errorCode.token_expired');
+        }
+        else if ($exception instanceof JWTException || $exception instanceof UnauthorizedHttpException) {
+            $code = config('errorCode.token_error');
+        }
+        else if ($exception instanceof Exception) {
+            $code = config('errorCode.' . $exception->getMessage());
+        }
+        else{
+            $code = config('errorCode.unknown');
+        }
+
+        return responseJson([], $code);
     }
 }
