@@ -9,6 +9,10 @@ return [
     'token_error' => 1002,
     'invalid_credentials' => 1003,
     /**
+     * permission
+     */
+    'permission_unauthorized' => 1200,
+    /**
      * other
      */
 ];
