@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,5 +11,8 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
-Route::middleware(['jwt.auth'])->get('/user','HomeController@getTokenData');
-Route::middleware(['jwt.auth'])->get('/user/logout','LoginController@logout');
+Route::group(['middleware'=>['jwt.auth']],function ()
+{
+    Route::get('/user','HomeController@getTokenData');
+    Route::get('/user/logout','LoginController@logout');
+});
