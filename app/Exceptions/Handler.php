@@ -73,8 +73,11 @@ class Handler extends ExceptionHandler
         else if ($exception instanceof JWTException || $exception instanceof UnauthorizedHttpException) {
             $code = config('errorCode.token_error');
         }
-        else if ($exception instanceof Exception) {
+        else if ($exception instanceof CustomException) {
             $code = config('errorCode.' . $exception->getMessage());
+        }
+        else if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+            $code = config('errorCode.permission_unauthorized');
         }
         else{
             $code = config('errorCode.unknown');
