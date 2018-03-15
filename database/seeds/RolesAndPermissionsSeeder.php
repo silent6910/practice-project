@@ -13,6 +13,8 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // create permissions
         Permission::create(['name' => 'article_search']);
+        //todo 這邊權限是設計不夠完全的
+        Permission::create(['name' => 'article_createBulletin']);
 
         // create roles and assign existing permissions
         $role = Role::create(['name' => config('role.defRole')]);

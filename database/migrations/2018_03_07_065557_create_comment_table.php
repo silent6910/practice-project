@@ -16,9 +16,11 @@ class CreateCommentTable extends Migration
         Schema::create('comment', function (Blueprint $table) {
             $table->increments('id');
             $table->text('content')->default('')->comment('article content');
+            $table->integer('user_id')->nullable(false)->unsigned()->comment('FK_comment_users');
             $table->integer('article_id')->nullable(false)->unsigned()->comment('FK_comment_article');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('article_id')->references('id')->on('article');
         });
     }

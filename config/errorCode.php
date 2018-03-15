@@ -1,6 +1,7 @@
 <?php
 return [
-    'unknown' => 0,
+    'unauthorized' => 401,
+    'unknown' => 500,
     /**
      * token
      */

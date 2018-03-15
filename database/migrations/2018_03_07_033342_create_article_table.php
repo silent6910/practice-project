@@ -15,11 +15,13 @@ class CreateArticleTable extends Migration
     {
         Schema::create('article', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable(false)->comment('FK_article_users');
             $table->tinyInteger('type')->unsigned()->nullable(false)->default(0)->comment('article type');
             $table->string('title', 300)->nullable(false)->default('')->comment('article title');
             $table->text('content')->default('')->comment('article content');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
