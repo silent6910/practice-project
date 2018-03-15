@@ -45,7 +45,9 @@ class UserRepository
      */
     public function giveDefRole(User $user)
     {
-        return $user->assignRole(config('role.premiumRole'));
+        return $user->hasRole(config('role.premiumRole'))
+            ? $user
+            : $user->assignRole(config('role.premiumRole'));
     }
 
 }
