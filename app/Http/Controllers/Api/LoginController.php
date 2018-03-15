@@ -19,8 +19,7 @@ class LoginController extends Controller
      */
     public function handleProviderCallback($provider, UserRepository $userRepository, JwtService $jwtService)
     {
-
-        $user = Socialite::driver($provider)->stateless()->user();
+        $user = Socialite::driver($provider)->userFromToken(request()->bearerToken());
 
         $user = $userRepository->socialiteUser($user->getId(), $provider, $user->getEmail(), $user->getName());
 

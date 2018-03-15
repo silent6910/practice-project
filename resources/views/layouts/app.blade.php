@@ -1,35 +1,81 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+html>
 <head>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="841955498576-uj7qn2n6r6kvrjmelr9ovbmd7f9satm2.apps.googleusercontent.com">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script>
+      var googleUser = {};
+      var startApp = function() {
+        gapi.load('auth2', function(){
+          // Retrieve the singleton for the GoogleAuth library and set up the client.
+          auth2 = gapi.auth2.init({
+            client_id: '841955498576-h716mura55f07q6fddt11s6ihoia13m4.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin',
+            // Request scopes in addition to 'profile' and 'email'
+            //scope: 'additional_scope'
+          });
+          attachSignin(document.getElementById('customBtn'));
+        });
+      };
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>应用程序名称 - @yield('title')</title>
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+      function attachSignin(element) {
+        console.log(element.id);
+        auth2.attachClickHandler(element, {},
+            function(googleUser) {
+              document.getElementById('name').innerText = "Signed in: " +
+                  googleUser.getBasicProfile().getName();
+            }, function(error) {
+              alert(JSON.stringify(error, undefined, 2));
+            });
+      }
+    </script>
+    <style type="text/css">
+        #customBtn {
+            display: inline-block;
+            background: white;
+            color: #444;
+            width: 190px;
+            border-radius: 5px;
+            border: thin solid #888;
+            box-shadow: 1px 1px 1px grey;
+            white-space: nowrap;
+        }
+        #customBtn:hover {
+            cursor: pointer;
+        }
+        span.label {
+            font-family: serif;
+            font-weight: normal;
+        }
+        span.icon {
+            background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            width: 42px;
+            height: 42px;
+        }
+        span.buttonText {
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 42px;
+            padding-right: 42px;
+            font-size: 14px;
+            font-weight: bold;
+            /* Use the Roboto font that is loaded in the <head> */
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 </head>
 <body>
-
-<div id="app">
-    {{$user}}
-    <div id = "app-2"> <span v-bind:title = "message">     鼠標懸停幾秒鐘查看此處動態綁定的提示信息！</span> </div>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-@section('test')
-        <p>这将追加到主布局的侧边栏。</p>
-    @show
-    @yield('content')
+<!-- In the callback, you would hide the gSignInWrapper element on a
+successful sign in -->
+<div id="gSignInWrapper">
+    <span class="label">Sign in with:</span>
+    <div id="customBtn" class="customGPlusSignIn">
+        <span class="icon"></span>
+        <span class="buttonText">Google</span>
+    </div>
 </div>
-
-<!-- Scripts -->
-<script src="/js/manifest.js"></script>
-<script src="/js/vendor.js"></script>
-<script src="/js/app.js"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<div id="name"></div>
+<script>startApp();</script>
 </body>
 </html>
