@@ -14,6 +14,7 @@ Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback'
 Route::group(['middleware'=>['jwt.auth']],function ()
 {
     Route::resource('article', 'ArticleController');
-    Route::get('/user','HomeController@getTokenData');
+    //Route::get('/user','HomeController@getTokenData');
+    Route::get('/user','UserController@getUserData');
     Route::get('/user/logout','LoginController@logout');
 });
