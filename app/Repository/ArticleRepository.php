@@ -26,7 +26,19 @@ class ArticleRepository
      */
     public function getIndex()
     {
-        return $this->model->select('id', 'title', 'created_at', 'updated_at')->get();
+        //todo 正規的laravel作法應該如下註解部分
+        // return $this->model
+//            ->select('id', 'type', 'title', 'created_at', 'updated_at', 'user_id')
+//            ->with('user')
+//            ->get();
+        $articleCol = ['id', 'type', 'title', 'created_at', 'updated_at'];
+        $col = array_map(function ($item) {
+            return $this->model->getTable() . '.' . $item;
+        }, $articleCol);
+        $col[] = 'users.name as user';
+        return $this->model->join('users', 'users.id', '=', 'article.user_id')
+            ->select(...$col)
+            ->get();
     }
 
     /**
@@ -42,9 +54,9 @@ class ArticleRepository
      * @param array $data
      * @return mixed
      */
-    public function store(array $data)
+    public function store(int $userId, array $data)
     {
-        return $this->model->create($data);
+        return $this->model->create(array_merge(['user_id' => $userId], $data));
     }
 
     /**

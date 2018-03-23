@@ -35,7 +35,7 @@ class ArticleController
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -46,7 +46,9 @@ class ArticleController
      */
     public function store(StoreArticle $request)
     {
-
+        $userId = auth()->user()->id;
+        $this->articleRepository->store($userId, $request->all());
+        return responseJson();
     }
 
     /**

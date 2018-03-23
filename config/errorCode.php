@@ -14,6 +14,10 @@ return [
      */
     'permission_unauthorized' => 1200,
     /**
+     * validate
+     */
+    'validate_failed' => 2000,
+    /**
      * other
      */
 ];

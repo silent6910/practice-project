@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Exceptions\CustomException;
 use App\Model\User;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -19,6 +20,11 @@ class StoreArticle extends FormRequest
         return true;
     }
 
+    protected function failedValidation(Validator $validator)
+    {
+        throw new CustomException('validate_failed');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +33,7 @@ class StoreArticle extends FormRequest
     public function rules()
     {
         return [
-            'type' => ['required', Rule::in(\ArticleType::getConstants()),],
+            'type' => ['required',Rule::in(\ArticleType::getConstants()),],
             'title' => ['required', 'string', 'max:300'],
             'content' => ['required', 'string',]
         ];
@@ -41,8 +47,9 @@ class StoreArticle extends FormRequest
      * @return void
      * @throws CustomException
      */
-    public function withValidator($validator, User $user)
+    public function withValidator($validator)
     {
+        $user = auth()->user();
         $articlePermission = \ArticleType::getPermission();
         if (!isset($articlePermission[$this->input('type')])) {
             return;
