@@ -10,12 +10,22 @@ class Article extends Model
 {
     use SoftDeletes;
 
-    Const COLUMN = ['id', 'type', 'title', 'content', 'created_at', 'updated_at'];
+    Const COLUMN = ['id', 'user_id', 'type', 'title', 'content', 'created_at', 'updated_at'];
 
     protected $table = 'article';
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['type', 'title', 'content'];
+    protected $fillable = ['user_id', 'type', 'title', 'content'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User')->select('id', 'name');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Model\Comment');
+    }
 
 }

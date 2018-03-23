@@ -10,6 +10,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasRoles;
 
+    protected $table = 'users';
+
     protected $guard_name = 'api';
 
     /**
@@ -33,6 +35,10 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'remember_token',
     ];
+    public function article()
+    {
+        return $this->hasMany('App\Model\Article', 'user_id','id');
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
