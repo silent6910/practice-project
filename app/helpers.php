@@ -8,7 +8,7 @@
  * @param int $code
  * @return \Illuminate\Http\JsonResponse
  */
-function responseJs on($data = [], $code = \Illuminate\Http\Response::HTTP_OK)
+function responseJson($data = [], $code = \Illuminate\Http\Response::HTTP_OK)
 {
     return response()->json([
         'code' => $code,
