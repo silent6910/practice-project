@@ -42,10 +42,10 @@ class ArticleRepository
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @return mixed
      */
-    public function getDetail(int $id)
+    public function getDetail($id)
     {
         return $this->model->select($this->model::COLUMN)->find($id);
     }
