@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreArticle;
-use App\Model\Article;
+use App\Http\Resources\ArticleCollection;
 use App\Repository\ArticleRepository;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class ArticleController
      */
     public function index(Request $request)
     {
-        return responseJson($this->articleRepository->getIndex());
+        return responseJson(new ArticleCollection($this->articleRepository->getIndex()));
         //
     }
 

@@ -35,7 +35,7 @@ class ArticleRepository
         $col = array_map(function ($item) {
             return $this->model->getTable() . '.' . $item;
         }, $articleCol);
-        $col[] = 'users.name as user';
+        $col[] = 'users.name as author';
         return $this->model->join('users', 'users.id', '=', 'article.user_id')
             ->select(...$col)
             ->get();
