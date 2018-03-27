@@ -14,10 +14,22 @@ class ArticleCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $username = auth()->user()->name;
-        $this->collection->map(function ($item) use ($username) {
-            $item->isAuthor = ($item->author == $username);
-        });
+        $this->buildCollection();
+
         return parent::toArray($request);
+    }
+
+    /**
+     * compare the author and remove useless data
+     *
+     */
+    private function buildCollection(): void
+    {
+        //todo 這邊可以在sql裡面處理，但因為時程的關係，先用這種方法處理
+        $userId = auth()->user()->id;
+        $this->collection->map(function ($item) use ($userId) {
+            $item->isAuthor = ($item->user_id == $userId);
+            $item->user_id = null;
+        });
     }
 }

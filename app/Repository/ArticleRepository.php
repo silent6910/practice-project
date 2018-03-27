@@ -31,7 +31,7 @@ class ArticleRepository
 //            ->select('id', 'type', 'title', 'created_at', 'updated_at', 'user_id')
 //            ->with('user')
 //            ->get();
-        $articleCol = ['id', 'type', 'title', 'created_at', 'updated_at'];
+        $articleCol = ['id', 'type', 'title', 'created_at', 'updated_at', 'user_id'];
         $col = array_map(function ($item) {
             return $this->model->getTable() . '.' . $item;
         }, $articleCol);
