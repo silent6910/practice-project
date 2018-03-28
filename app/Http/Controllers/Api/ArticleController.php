@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreArticle;
 use App\Http\Resources\ArticleCollection;
+use App\Http\Resources\ArticleContentResource;
 use App\Repository\ArticleRepository;
 use Illuminate\Http\Request;
 
@@ -49,9 +50,17 @@ class ArticleController
      */
     public function show($id)
     {
-        return responseJson($this->articleRepository->getDetail($id));
+        return responseJson(new ArticleContentResource($this->articleRepository->getDetail($id)));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function edit($id)
+    {
+        return responseJson($this->articleRepository->getEditData(auth()->user()->id, $id));
+    }
 
     /**
      * Update the specified resource in storage.

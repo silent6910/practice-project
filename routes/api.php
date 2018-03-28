@@ -13,6 +13,7 @@
 Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
 Route::group(['middleware' => ['jwt.auth']], function () {
     Route::apiResource('article', 'ArticleController');
+    Route::get('/article/{id}/edit', 'ArticleController@edit');
     //Route::get('/user','HomeController@getTokenData');
     Route::get('/user', 'UserController@getUserData');
 
