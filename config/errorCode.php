@@ -2,6 +2,7 @@
 return [
     'unauthorized' => 401,
     'forbidden' => 403,
+    'not found' => 404,
     'unknown' => 500,
     /**
      * token
