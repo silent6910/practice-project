@@ -31,7 +31,7 @@ class ArticleRepository
 //            ->select('id', 'type', 'title', 'created_at', 'updated_at', 'user_id')
 //            ->with('user')
 //            ->get();
-        $articleCol = ['id', 'type', 'title', 'created_at', 'updated_at'];
+        $articleCol = ['id', 'type', 'title', 'created_at', 'updated_at', 'user_id'];
         $col = array_map(function ($item) {
             return $this->model->getTable() . '.' . $item;
         }, $articleCol);
@@ -47,7 +47,7 @@ class ArticleRepository
      */
     public function getDetail($id)
     {
-        return $this->model->select($this->model::COLUMN)->find($id);
+        return $this->model->select($this->model::COLUMN)->with('user')->find($id);
     }
 
     /**
@@ -57,6 +57,23 @@ class ArticleRepository
     public function store(int $userId, array $data)
     {
         return $this->model->create(array_merge(['user_id' => $userId], $data));
+    }
+
+    public function getEditData(int $userId, $id)
+    {
+        $selectCol = ['id', 'type', 'title', 'content', 'created_at', 'updated_at'];
+
+        return $this->model->select($selectCol)->where('user_id', $userId)->find($id);
+    }
+
+    /**
+     * @param int $userId
+     * @param $id
+     * @return mixed
+     */
+    public function findEditData(int $userId, $id)
+    {
+        return $this->model->where('user_id', $userId)->findOrFail($id);
     }
 
     /**
