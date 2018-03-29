@@ -67,6 +67,16 @@ class ArticleRepository
     }
 
     /**
+     * @param int $userId
+     * @param $id
+     * @return mixed
+     */
+    public function findEditData(int $userId, $id)
+    {
+        return $this->model->where('user_id', $userId)->findOrFail($id);
+    }
+
+    /**
      * @param Article $article
      * @param array $data
      * @return bool
