@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\DestroyArticle;
 use App\Http\Requests\StoreArticle;
 use App\Http\Requests\UpdateArticle;
 use App\Http\Resources\ArticleCollection;
@@ -82,12 +83,15 @@ class ArticleController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param DestroyArticle $request
+     * @param Article $article
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(DestroyArticle $request, Article $article)
     {
-        //
+        $this->articleRepository->destroy($article);
+        return responseJson();
     }
 
 }
