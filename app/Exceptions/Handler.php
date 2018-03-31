@@ -64,7 +64,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        //return parent::render($request, $exception);
+        return parent::render($request, $exception);
         //It is not better that turn to use switch.
         if ($exception instanceof TokenExpiredException) {
             $code = config('errorCode.token_expired');

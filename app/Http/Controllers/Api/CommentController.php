@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreComment;
+use App\Http\Resources\PaginationCollection;
 use App\Model\Article;
 use App\Repository\CommentRepository;
 use Illuminate\Http\Request;
@@ -24,7 +25,8 @@ class CommentController extends Controller
     public function index(Article $article)
     {
         $result = $this->commentRepository->getArticleComment($article->id);
-        return responseJson($result);
+
+        return responseJson(new PaginationCollection($result));
     }
 
     /**
