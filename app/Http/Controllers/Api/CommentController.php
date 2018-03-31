@@ -31,11 +31,11 @@ class CommentController extends Controller
      *
      * @param StoreComment $request
      * @param Article $article
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreComment $request, Article $article)
     {
-        $this->commentRepository->store($article->id, $request->user()->id, $request->input('content'));
+        $this->commentRepository->store($article->id, $request->user()->id, $request->all());
         return responseJson();
     }
 

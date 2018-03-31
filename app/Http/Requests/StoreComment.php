@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Exceptions\CustomException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreComment extends FormRequest
 {
@@ -29,7 +31,7 @@ class StoreComment extends FormRequest
     public function rules()
     {
         return [
-            'content'=>['required', 'string','max:999']
+            'content' => ['required', 'string', 'max:999']
         ];
     }
 }

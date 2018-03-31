@@ -17,13 +17,13 @@ class CommentRepository
     /**
      * @param int $articleId
      * @param int $userId
-     * @param array $data
+     * @param array $requestData
      * @return mixed
      */
-    public function store(int $articleId,int $userId, array $data)
+    public function store(int $articleId, int $userId, array $requestData)
     {
-        $data = array_merge(['article_id' => $articleId, 'user_id' => $userId], $data);
-        return $this->model->create($data);
+        $requestData = array_merge(['article_id' => $articleId, 'user_id' => $userId], $requestData);
+        return $this->model->create($requestData);
     }
 
 }
