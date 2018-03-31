@@ -15,6 +15,18 @@ class CommentRepository
     }
 
     /**
+     * @param $articleId
+     * @return mixed
+     */
+    public function getArticleComment($articleId)
+    {
+        return $this->model
+            ->select('id', 'content', 'created_at', 'updated_at')
+            ->where('article_id', $articleId)
+            ->paginate(15);
+    }
+
+    /**
      * @param int $articleId
      * @param int $userId
      * @param array $requestData

@@ -21,9 +21,10 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Article $article)
     {
-        //
+        $result = $this->commentRepository->getArticleComment($article->id);
+        return responseJson($result);
     }
 
     /**
@@ -45,7 +46,7 @@ class CommentController extends Controller
      * @param  \App\comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(comment $comment)
+    public function show(Article $article)
     {
         //
     }
