@@ -3,6 +3,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Contracts\Validation\Validator;
+use App\Exceptions\CustomException;
 
 trait ValidationResponseTrait
 {
