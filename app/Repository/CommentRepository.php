@@ -21,7 +21,7 @@ class CommentRepository
     public function getArticleComment($articleId)
     {
         return $this->model
-            ->select('id', 'content', 'created_at', 'updated_at')
+            ->select('id', 'user_id', 'content', 'created_at', 'updated_at')
             ->where('article_id', $articleId)
             ->paginate(15);
     }

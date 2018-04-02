@@ -38,7 +38,7 @@ class ArticleRepository
         $col[] = 'users.name as author';
         return $this->model->join('users', 'users.id', '=', 'article.user_id')
             ->select(...$col)
-            ->get();
+            ->paginate(15);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreComment;
 use App\Http\Requests\UpdateComment;
+use App\Http\Resources\ArticleCollection;
 use App\Http\Resources\PaginationCollection;
 use App\Model\Article;
 use App\Model\Comment;
@@ -27,7 +28,7 @@ class CommentController extends Controller
     public function index(Article $article)
     {
         $result = $this->commentRepository->getArticleComment($article->id);
-
+        addIsAuthorToList(auth()->user()->id, $result);
         return responseJson(new PaginationCollection($result));
     }
 
