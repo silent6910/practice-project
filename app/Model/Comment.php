@@ -11,4 +11,11 @@ class Comment extends Model
 
     protected $fillable = ['user_id', 'article_id', 'content'];
 
+    private $fillableUpdate = ['content'];
+
+    public function getFillableUpdate()
+    {
+        return $this->fillableUpdate;
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Traits\ValidationResponseTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class UpdateComment extends FormRequest
 {
     use ValidationResponseTrait;
@@ -16,7 +17,7 @@ class UpdateComment extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->comment);
+        return $this->user()->can('update', $this->article, $this->comment);
     }
 
     /**
