@@ -8,6 +8,7 @@ use App\Http\Requests\StoreArticle;
 use App\Http\Requests\UpdateArticle;
 use App\Http\Resources\ArticleCollection;
 use App\Http\Resources\ArticleContentResource;
+use App\Http\Resources\PaginationCollection;
 use App\Model\Article;
 use App\Repository\ArticleRepository;
 use Illuminate\Http\Request;
@@ -28,7 +29,9 @@ class ArticleController
      */
     public function index(Request $request)
     {
-        return responseJson(new ArticleCollection($this->articleRepository->getIndex()));
+        $result = $this->articleRepository->getIndex();
+        addIsAuthorToList($request->user()->id, $result);
+        return responseJson(new PaginationCollection($result));
         //
     }
 
