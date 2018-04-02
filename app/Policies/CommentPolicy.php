@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Model\Article;
 use App\Model\Comment;
 use App\Model\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -17,9 +18,9 @@ class CommentPolicy
      * @param Comment $comment
      * @return bool
      */
-    public function update(User $user, Comment $comment)
+    public function update(User $user,Article $article, Comment $comment)
     {
-        return $user->id === $comment->user_id;
+        return ($article->id === $comment->article_id) && ($user->id === $comment->user_id);
     }
 
     /**
