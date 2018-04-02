@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreComment;
+use App\Http\Requests\UpdateComment;
 use App\Http\Resources\PaginationCollection;
 use App\Model\Article;
+use App\Model\Comment;
 use App\Repository\CommentRepository;
 use Illuminate\Http\Request;
 
@@ -43,26 +45,16 @@ class CommentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\comment $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Article $article)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\comment $comment
-     * @return \Illuminate\Http\Response
+     * @param UpdateComment $request
+     * @param Comment $comment
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, comment $comment)
+    public function update(UpdateComment $request, Article $article, Comment $comment)
     {
-        //
+        $this->commentRepository->update($comment, $request->all());
+        return responseJson();
     }
 
     /**

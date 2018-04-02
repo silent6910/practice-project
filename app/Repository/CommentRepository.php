@@ -38,4 +38,15 @@ class CommentRepository
         return $this->model->create($requestData);
     }
 
+    /**
+     * @param Comment $comment
+     * @param array $data
+     * @return bool
+     */
+    public function update(Comment $comment, array $data)
+    {
+        $updateCol = array_only($data, $comment->getFillableUpdate());
+        return $comment->update($updateCol);
+    }
+
 }

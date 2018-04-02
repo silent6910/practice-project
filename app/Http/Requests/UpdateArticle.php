@@ -3,12 +3,15 @@
 namespace App\Http\Requests;
 
 use App\Exceptions\CustomException;
+use App\Traits\ValidationResponseTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
 
 class UpdateArticle extends FormRequest
 {
+
+    use ValidationResponseTrait;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,15 +24,7 @@ class UpdateArticle extends FormRequest
         return $this->user()->can('update', $this->article);
     }
 
-    public function failedAuthorization()
-    {
-        throw new CustomException('forbidden');
-    }
 
-    protected function failedValidation(Validator $validator)
-    {
-        throw new CustomException('validate_failed');
-    }
 
     /**
      * Get the validation rules that apply to the request.
