@@ -18,7 +18,7 @@ class CommentPolicy
      * @param Comment $comment
      * @return bool
      */
-    public function update(User $user,Article $article, Comment $comment)
+    public function update(User $user, Article $article, Comment $comment)
     {
         return ($article->id === $comment->article_id) && ($user->id === $comment->user_id);
     }
@@ -30,8 +30,8 @@ class CommentPolicy
      * @param Comment $comment
      * @return bool
      */
-    public function delete(User $user, Comment $comment)
+    public function delete(User $user, Article $article, Comment $comment)
     {
-        return $user->id === $comment->user_id;
+        return ($article->id === $comment->article_id) && ($user->id === $comment->user_id);
     }
 }

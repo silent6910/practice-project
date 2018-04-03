@@ -50,4 +50,14 @@ class CommentRepository
         return $comment->update($updateCol);
     }
 
+    /**
+     * @param Comment $comment
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function destroy(Comment $comment)
+    {
+        return $comment->delete();
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\DestroyComment;
 use App\Http\Requests\StoreComment;
 use App\Http\Requests\UpdateComment;
 use App\Http\Resources\ArticleCollection;
@@ -61,11 +62,15 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\comment $comment
+     * @param DestroyComment $request
+     * @param Article $article
+     * @param Comment $comment
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy(comment $comment)
+    public function destroy(DestroyComment $request, Article $article, comment $comment)
     {
-        //
+        $this->commentRepository->destroy($comment);
+        return responseJson();
     }
 }
