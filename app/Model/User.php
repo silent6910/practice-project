@@ -27,13 +27,14 @@ class User extends Authenticatable implements JWTSubject
         'nickname',
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'remember_token',
+        'remember_token','id'
     ];
     public function article()
     {

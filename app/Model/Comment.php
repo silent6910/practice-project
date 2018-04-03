@@ -17,5 +17,14 @@ class Comment extends Model
     {
         return $this->fillableUpdate;
     }
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User');
+    }
+
+    public function article()
+    {
+        return $this->belongsTo('App\Model\Article');
+    }
 
 }

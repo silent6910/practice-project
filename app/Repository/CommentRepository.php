@@ -23,6 +23,7 @@ class CommentRepository
         return $this->model
             ->select('id', 'user_id', 'content', 'created_at', 'updated_at')
             ->where('article_id', $articleId)
+            ->with('user:id,name')
             ->paginate(15);
     }
 
