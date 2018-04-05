@@ -27,17 +27,9 @@ class ArticleRepository
     public function getIndex()
     {
         //todo 正規的laravel作法應該如下註解部分
-        // return $this->model
-//            ->select('id', 'type', 'title', 'created_at', 'updated_at', 'user_id')
-//            ->with('user')
-//            ->get();
-        $articleCol = ['id', 'type', 'title', 'created_at', 'updated_at', 'user_id'];
-        $col = array_map(function ($item) {
-            return $this->model->getTable() . '.' . $item;
-        }, $articleCol);
-        $col[] = 'users.name as author';
-        return $this->model->join('users', 'users.id', '=', 'article.user_id')
-            ->select(...$col)
+         return $this->model
+            ->select('id', 'type', 'title', 'created_at', 'updated_at', 'user_id')
+            ->with('user')
             ->paginate(15);
     }
 
