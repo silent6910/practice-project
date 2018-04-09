@@ -17,9 +17,9 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'article_createBulletin']);
 
         // create roles and assign existing permissions
-        $role = Role::create(['name' => config('role.defRole')]);
+        $defRole = Role::create(['name' => config('role.defRole')]);
 
-        $role = Role::create(['name' => config('role.premiumRole')]);
-        $role->givePermissionTo(['article_search']);
+        $premiumRole = Role::create(['name' => config('role.premiumRole')]);
+        $premiumRole->givePermissionTo(['article_search', 'article_createBulletin']);
     }
 }
