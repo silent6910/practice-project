@@ -55,7 +55,7 @@ class StoreArticle extends FormRequest
             return;
         }
         if (!$user->hasPermissionTo($articlePermission[$this->input('type')])) {
-            throw new CustomException('', config('errorCode.unauthorized'));
+            throw new CustomException('unauthorized');
         }
 
     }

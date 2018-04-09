@@ -6,7 +6,6 @@ use App\Exceptions\CustomException;
 use App\Traits\ValidationResponseTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Contracts\Validation\Validator;
 
 class UpdateArticle extends FormRequest
 {
@@ -25,7 +24,6 @@ class UpdateArticle extends FormRequest
     }
 
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -34,7 +32,7 @@ class UpdateArticle extends FormRequest
     public function rules()
     {
         return [
-            'type' => ['required',Rule::in(\ArticleType::getConstants()),],
+            'type' => ['required', Rule::in(\ArticleType::getConstants()),],
             'title' => ['required', 'string', 'max:300'],
             'content' => ['required', 'string',]
         ];
@@ -55,7 +53,7 @@ class UpdateArticle extends FormRequest
             return;
         }
         if (!$user->hasPermissionTo($articlePermission[$this->input('type')])) {
-            throw new CustomException('', config('errorCode.unauthorized'));
+            throw new  CustomException('unauthorized');
         }
 
     }
