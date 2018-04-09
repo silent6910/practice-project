@@ -97,4 +97,9 @@ class ArticleController
         return responseJson();
     }
 
+    public function getType()
+    {
+        return responseJson(__('articleType'));
+    }
+
 }

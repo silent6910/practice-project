@@ -39,7 +39,7 @@ class ArticleRepository
      */
     public function getDetail($id)
     {
-        return $this->model->select($this->model::COLUMN)->with('user')->find($id);
+        return $this->model->select($this->model::COLUMN)->with('user')->findOrFail($id);
     }
 
     /**

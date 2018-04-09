@@ -2,10 +2,10 @@
 
 class ArticleType
 {
-    CONST BULLETIN = 0;
-    CONST DISCUSS = 1;
-    CONST PROBLEM = 2;
-    CONST EXPERIENCE = 3;
+    CONST BULLETIN = 1;
+    CONST DISCUSS = 2;
+    CONST PROBLEM = 3;
+    CONST EXPERIENCE = 4;
 
     //get class all const
     static function getConstants()
