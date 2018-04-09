@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\DestroyComment;
 use App\Http\Requests\StoreComment;
 use App\Http\Requests\UpdateComment;
-use App\Http\Resources\ArticleCollection;
 use App\Http\Resources\PaginationCollection;
 use App\Model\Article;
 use App\Model\Comment;
 use App\Repository\CommentRepository;
-use Illuminate\Http\Request;
+use App\Service\BuildDataService;
 
 class CommentController extends Controller
 {
@@ -24,12 +23,14 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Article $article
+     * @param BuildDataService $buildDataService
      * @return \Illuminate\Http\Response
      */
-    public function index(Article $article)
+    public function index(Article $article, BuildDataService $buildDataService)
     {
         $result = $this->commentRepository->getArticleComment($article->id);
-        addIsAuthorToList(auth()->user()->id, $result);
+        $buildDataService->addIsAuthorToList(auth()->user()->id, $result);
         return responseJson(new PaginationCollection($result));
     }
 
@@ -50,6 +51,7 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateComment $request
+     * @param Article $article
      * @param Comment $comment
      * @return \Illuminate\Http\JsonResponse
      */

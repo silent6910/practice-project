@@ -16,14 +16,6 @@ function responseJson($data = [], $code = \Illuminate\Http\Response::HTTP_OK)
     ]);
 }
 
-function addIsAuthorToList(int $userId, &$collection)
-{
-    $collection->map(function ($item) use ($userId) {
-        $item->isAuthor = ($item->user_id == $userId);
-        unset($item->user_id);
-    });
-}
-
 ///**
 // * unify response format with pagination
 // * code:default=>200,unknown=>500,other=>getCode()
