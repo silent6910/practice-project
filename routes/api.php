@@ -13,6 +13,7 @@
 Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
 Route::group(['middleware' => ['jwt.auth']], function () {
 
+    Route::get('article/type', 'ArticleController@getType');
     Route::apiResource('article', 'ArticleController');
     Route::apiResource('article/{article}/comment', 'CommentController', ['except' => ['show']]);
 
