@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -69,20 +70,23 @@ class Handler extends ExceptionHandler
         if ($exception instanceof TokenExpiredException) {
             $code = config('errorCode.token_expired');
         }
-        else if ($exception instanceof TokenInvalidException) {
+        elseif ($exception instanceof TokenInvalidException) {
             $code = config('errorCode.token_expired');
         }
-        else if ($exception instanceof JWTException || $exception instanceof UnauthorizedHttpException) {
+        elseif ($exception instanceof JWTException || $exception instanceof UnauthorizedHttpException) {
             $code = config('errorCode.token_error');
         }
-        else if ($exception instanceof CustomException) {
+        elseif ($exception instanceof CustomException) {
             $code = config('errorCode.' . $exception->getMessage());
         }
-        else if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+        elseif ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
             $code = config('errorCode.permission_unauthorized');
         }
         // model not found exception is not NotFoundHttpException
-        else if ($exception instanceof ModelNotFoundException) {
+        elseif ($exception instanceof ModelNotFoundException) {
+            $code = config('errorCode.not found');
+        }
+        elseif ($this->isHttpException($exception)) {
             $code = config('errorCode.not found');
         }
         else{
