@@ -6,11 +6,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\DestroyArticle;
 use App\Http\Requests\StoreArticle;
 use App\Http\Requests\UpdateArticle;
-use App\Http\Resources\ArticleCollection;
 use App\Http\Resources\ArticleContentResource;
 use App\Http\Resources\PaginationCollection;
 use App\Model\Article;
 use App\Repository\ArticleRepository;
+use App\Service\BuildDataService;
 use Illuminate\Http\Request;
 
 class ArticleController
@@ -25,12 +25,14 @@ class ArticleController
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     * @param BuildDataService $buildDataService
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, BuildDataService $buildDataService)
     {
         $result = $this->articleRepository->getIndex();
-        addIsAuthorToList($request->user()->id, $result);
+        $buildDataService->buildArticleListData($request->user()->id, $result);
         return responseJson(new PaginationCollection($result));
         //
     }
@@ -97,6 +99,9 @@ class ArticleController
         return responseJson();
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getType()
     {
         return responseJson(__('articleType'));
