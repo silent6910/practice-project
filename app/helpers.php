@@ -8,6 +8,8 @@
  * @param int $code
  * @return \Illuminate\Http\JsonResponse
  */
+
+
 function responseJson($data = [], $code = \Illuminate\Http\Response::HTTP_OK)
 {
     return response()->json([
@@ -15,6 +17,16 @@ function responseJson($data = [], $code = \Illuminate\Http\Response::HTTP_OK)
         'data' => $data
     ]);
 }
+
+//for dev
+//function responseJson($data = [], $message)
+//{
+//    return response()->json([
+//        'code' => $message,
+//        'data' => $data
+//    ]);
+//}
+
 
 ///**
 // * unify response format with pagination

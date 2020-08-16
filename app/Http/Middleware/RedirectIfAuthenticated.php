@@ -21,6 +21,7 @@ class RedirectIfAuthenticated
             return response()->json(['error' => 'Already authenticated.'], 400);
         }
 
+
         return $next($request);
     }
 }

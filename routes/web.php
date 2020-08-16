@@ -11,5 +11,5 @@
 |
 */
 
-Route::view('/','welcome');
-Route::get('login/{provider}', 'LoginController@redirectToProvider');
+//Route::view('/','welcome');
+

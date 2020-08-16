@@ -10,7 +10,9 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('v1')->group(function () {
+//Route::middleware('cors')->get('v1/login/{provider}', 'LoginController@redirectToProvider');
+Route::prefix('v1')->middleware('api')->group(function () {
+    Route::get('login/{provider}', 'LoginController@redirectToProvider');
     Route::get('login/{provider}/callback', 'LoginController@handleProviderCallback');
     Route::group(['middleware' => ['jwt.auth']], function () {
 
@@ -26,5 +28,5 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', 'LoginController@logout');
 
     });
-});
+});;
 

@@ -38,7 +38,7 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_ID'),
         'client_secret' => env('GOOGLE_KEY'),
-        'redirect' => 'http://localhost/api/login/google/callback',
+        'redirect' => 'http://localhost/api/v1/login/google/callback',
     ],
 
     'facebook' => [

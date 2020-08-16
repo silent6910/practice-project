@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -40,11 +41,11 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception $exception
+     * @param  \Throwable $exception
      * @return void
      * @throws Exception
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         if ($exception->getCode() == config('errorCode.unknown')) {
             if (app()->bound('sentry') && $this->shouldReport($exception)) {
@@ -60,11 +61,13 @@ class Handler extends ExceptionHandler
      * code:default=>200,unknown=>0,other=>errorCode
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Exception $exception
+     * @param  \Throwable $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
+        $code = 0;
+
         //return parent::render($request, $exception);
         //It is not better that turn to use switch.
         if ($exception instanceof TokenExpiredException) {
