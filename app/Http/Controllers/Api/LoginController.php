@@ -4,29 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Repository\UserRepository;
 use App\Service\JwtService;
-use http\Client\Request;
 use Laravel\Socialite\Facades\Socialite;
-use phpDocumentor\Reflection\Types\Integer;
-
-/**
- * Class SubrectangleQueries
- * @package App\Http\Controllers\Api
- */
-class SubrectangleQueries {
-    /**
-     * @param Integer[][] $rectangle
-     */
 
 
-
-}
-
-/**
- * Your SubrectangleQueries object will be instantiated and called as such:
- * $obj = SubrectangleQueries($rectangle);
- * $obj->updateSubrectangle($row1, $col1, $row2, $col2, $newValue);
- * $ret_2 = $obj->getValue($row, $col);
- */
 
 class LoginController extends Controller
 {
